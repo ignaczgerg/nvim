@@ -1,4 +1,4 @@
-return {
+return{
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {
@@ -10,6 +10,11 @@ return {
     },
     config = function(_, opts)
       require("mason").setup()
+
+      -- Advertise cmp completion capabilities to LSP servers
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      vim.lsp.config('*', { capabilities = capabilities })
+
       require("mason-lspconfig").setup(opts)
 
       -- Per-server settings
