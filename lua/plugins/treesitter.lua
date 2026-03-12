@@ -1,5 +1,23 @@
-  return {
-     'nvim-treesitter/nvim-treesitter',
-     lazy = false,
-     build = ':TSUpdate',
-  }
+return {
+  'nvim-treesitter/nvim-treesitter',
+  lazy = false,
+  build = ':TSUpdate',
+  opts = {
+    ensure_installed = { 'lua', 'python' },
+    highlight = { enable = true },
+    indent = { enable = true },
+  },
+  config = function(_, opts)
+    require('nvim-treesitter').setup(opts)
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = '*',
+      callback = function()
+        if pcall(vim.treesitter.start) then
+          vim.wo[0][0].foldmethod = 'expr'
+          vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        end
+      end,
+    })
+  end,
+}

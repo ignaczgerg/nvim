@@ -7,6 +7,9 @@ return {
       "MunifTanjim/nui.nvim",
       "nvim-tree/nvim-web-devicons",
     },
+    keys = {
+      { '<C-n>', '<cmd>Neotree toggle<cr>', desc = 'Toggle Neo-tree' },
+    },
   },
   {
     "antosha417/nvim-lsp-file-operations",
@@ -30,6 +33,7 @@ return {
             filetype = { "neo-tree", "neo-tree-popup", "notify" },
             buftype = { "terminal", "quickfix" },
           },
+          filesystem = {use_libuv_file_watcher = false,},
         },
       })
     end,
