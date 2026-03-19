@@ -4,8 +4,6 @@ return {
   build = ':TSUpdate',
   opts = {
     ensure_installed = { 'lua', 'python' },
-    highlight = { enable = true },
-    indent = { enable = true },
   },
   config = function(_, opts)
     require('nvim-treesitter').setup(opts)
@@ -14,6 +12,7 @@ return {
       pattern = '*',
       callback = function()
         if pcall(vim.treesitter.start) then
+          vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
           vim.wo[0][0].foldmethod = 'expr'
           vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         end
