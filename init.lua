@@ -24,8 +24,6 @@ vim.keymap.set('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = tru
 
 -- Remap of _ to jump to the end of the line instead of beginning [this was $ before]
 vim.keymap.set({'n', 'v', 'o'}, '_', '$', {noremap = true, silent = true, desc = "Jump to the end of the line"})
-
-
 -- Remap of _ to jump to the end of the line instead of beginning [this was $ before]
 vim.keymap.set({'n', 'v', 'o'}, '$', '_', {noremap = true, silent = true, desc = "Jump to the beginning of the line"})
 
