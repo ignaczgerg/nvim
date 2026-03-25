@@ -27,5 +27,19 @@ vim.keymap.set({'n', 'v', 'o'}, '_', '$', {noremap = true, silent = true, desc =
 -- Remap of _ to jump to the end of the line instead of beginning [this was $ before]
 vim.keymap.set({'n', 'v', 'o'}, '$', '_', {noremap = true, silent = true, desc = "Jump to the beginning of the line"})
 
+vim.keymap.set('n', '<leader>rc', function()
+        vim.cmd([[g/^\s*#\s/d]]) -- delete everything after #
+        vim.cmd([[%s/\s*#\s.*$//e]]) -- strip inline # comments
+        end, { desc = "Remove comments" })
+
+vim.keymap.set('n', '<leader>rd', function ()
+        vim.cmd([[%s/\s*"""\_.\{-}"""//ge]])
+        end, { desc = "Remove docstrings"})
+
+
+vim.keymap.set('n', '<leader>f', function()
+        require("conform").format({ async = true })
+        end, { desc = "Format file"})
+
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
