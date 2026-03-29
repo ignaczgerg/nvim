@@ -1,8 +1,9 @@
 return {
   "folke/tokyonight.nvim",
   lazy = false,
+  enabled = false,
   priority = 1000,
-  opts = {style = "night"},
+  opts = {style = "storm"},
   config = function(_, opts)
     require("tokyonight").setup(opts)
     vim.cmd.colorscheme("tokyonight")
