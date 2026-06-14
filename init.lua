@@ -1,5 +1,6 @@
 require("config.lazy")
 require("config.vim-options")
+require("config.neovide")
 
 vim.g.clipboard = {
   name = 'OSC 52',
