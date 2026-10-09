@@ -1,5 +1,5 @@
-require("config.lazy")
 require("config.vim-options")
+require("config.lazy")
 require("config.neovide")
 
 vim.g.clipboard = {
@@ -23,20 +23,12 @@ vim.keymap.set('n', '<A-Up>', ':m .-2<CR>==', { noremap = true, silent = true })
 vim.keymap.set('v', '<A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.keymap.set('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
--- Remap of _ to jump to the end of the line instead of beginning [this was $ before]
-vim.keymap.set({'n', 'v', 'o'}, '_', '$', {noremap = true, silent = true, desc = "Jump to the end of the line"})
--- Remap of _ to jump to the end of the line instead of beginning [this was $ before]
-vim.keymap.set({'n', 'v', 'o'}, '$', '_', {noremap = true, silent = true, desc = "Jump to the beginning of the line"})
+-- Swap line-start/end motions: $ goes to the first non-blank, _ to the end of the line.
+-- '^' is used instead of '_' so operators stay characterwise (d$ no longer deletes the whole line).
+vim.keymap.set({'n', 'x', 'o'}, '$', '^', {silent = true, desc = "Jump to first non-blank"})
+vim.keymap.set({'n', 'x', 'o'}, '_', '$', {silent = true, desc = "Jump to end of line"})
 
-vim.keymap.set('n', '<leader>rc', function()
-        vim.cmd([[g/^\s*#\s/d]]) -- delete everything after #
-        vim.cmd([[%s/\s*#\s.*$//e]]) -- strip inline # comments
-        end, { desc = "Remove comments" })
-
-vim.keymap.set('n', '<leader>rd', function ()
-        vim.cmd([[%s/\s*"""\_.\{-}"""//ge]])
-        end, { desc = "Remove docstrings"})
-
+-- <leader>rc / <leader>rd (remove comments / docstrings) live in after/ftplugin/python.lua
 
 vim.keymap.set('n', '<leader>f', function()
         require("conform").format({ async = true })

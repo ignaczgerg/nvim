@@ -1,12 +1,17 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  branch = 'main',
   lazy = false,
   build = ':TSUpdate',
-  opts = {
-    ensure_installed = { 'lua', 'python' },
-  },
-  config = function(_, opts)
-    require('nvim-treesitter').setup(opts)
+  -- Mason puts tree-sitter-cli on PATH; it's needed to build parsers
+  dependencies = { 'mason-org/mason.nvim' },
+  config = function()
+    -- On the main branch, setup() no longer takes ensure_installed; install() does
+    -- (already-installed parsers are skipped).
+    require('nvim-treesitter').install({
+      'lua', 'python', 'bash', 'json', 'yaml', 'toml',
+      'markdown', 'markdown_inline', 'vim', 'vimdoc', 'regex', 'query',
+    })
 
     vim.api.nvim_create_autocmd('FileType', {
       pattern = '*',
